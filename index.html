@@ -1,0 +1,40 @@
+<html>
+	 <table border="2">
+                        <thead>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>City</th>
+                                <th>salary</th>
+                        </thead>
+			<tbody id="tbody"> </tbody>
+                </table>
+		<script>
+			let offset = 'A2';
+let limit = 'Z999';
+//https://docs.google.com/spreadsheets/d/14gPY86yCDpR7woJ1MoBS1M3m_bwMcZ7DbiJ2QFTMM6k/edit?usp=sharing
+const sheetid = "14gPY86yCDpR7woJ1MoBS1M3m_bwMcZ7DbiJ2QFTMM6k";
+
+const apikey = "AIzaSyC6OgNIrTq4DB5x8mnk-iJyjG0ym0xcIrU";
+
+const sheetname = "Sheet1";
+const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetid}/values/${sheetname}!${offset}:${limit}?key=${apikey}`;
+
+var sheet_data = [];
+var records = "";
+
+fetch(url).then(data => data.json()).then(data => {
+	sheet_data = data.values;
+	console.table(sheet_data);
+	rd = "";
+	for(i=0; i < sheet_data.length; i++)
+		rd = rd + `<tr><td>${sheet_data [i][0]}</td> <td>${sheet_data [i][1]}</td> <td>${sheet_data [i][2]}</td> <td>${sheet_data[i][3]}</td></tr>`;
+	//rd = rd + `<td>${sheet_data [i][0]}</td> <td>${sheet_data [i][1]}</td> <td>${sheet_data [i][2]}</td> <td>${sheet_data[i][3]}</td>`;
+	//rd = rd + `<td>${sheet_data [i][0]}</td> <td>${sheet_data [i][1]}</td> <td>${sheet_data [i][2]}</td> <td>${sheet_data[i][3]}</td>`;
+
+	document.getElementById("tbody").innerHTML=rd
+
+
+});
+
+</script>
+</html>
